@@ -1,6 +1,7 @@
 package com.tonyt.restcalc.Controllers;
 
 import com.tonyt.restcalc.Services.BasicCalcService;
+import com.tonyt.restcalc.Services.EquationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,10 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CalculatorController {
     private final BasicCalcService basicCalcService;
+    private final EquationService equationService;
 
     @Autowired
-    public CalculatorController(BasicCalcService basicCalcService) {
+    public CalculatorController(BasicCalcService basicCalcService, EquationService equationService) {
         this.basicCalcService = basicCalcService;
+        this.equationService = equationService;
     }
 
 
@@ -43,5 +46,10 @@ public class CalculatorController {
     @GetMapping("/pow")
     public float pow(float a, float b) {
         return basicCalcService.pow(a, b);
+    }
+
+    @GetMapping("/degree2")
+    public float[] degree2(float a, float b, float c) {
+        return equationService.degree2(a,b,c);
     }
 }
